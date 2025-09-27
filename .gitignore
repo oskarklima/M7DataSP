@@ -1,1 +1,21 @@
 dataset_split/
+
+# Conda environments
+.conda/
+envs/
+**/envs/
+environment.yml
+environment.yaml
+.env
+*.env
+
+# Conda package cache
+.condarc
+.conda-env
+conda-meta/
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
