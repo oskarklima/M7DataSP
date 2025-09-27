@@ -1,0 +1,1 @@
+get nispired in lesson2 folder and write the simple_CNN notebook
