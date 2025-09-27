@@ -73,6 +73,8 @@ if __name__ == "__main__":
     # Cesty k vašim dátam (GitHub repo: oskarklima/M7DataSP)
     source_directory = "dataset"  # Tu máte bird, car, fish, flower priečinky
     target_directory = "dataset_split"  # Tu sa vytvoria train/test priečinky
+
+    random.seed(0)
     
     # Rozdelenie na 75% train, 25% test
     create_train_test_split(
