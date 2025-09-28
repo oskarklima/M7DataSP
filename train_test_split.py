@@ -29,6 +29,10 @@ def create_train_test_split(source_dir, target_dir, test_ratio):
     
     print(f"Našiel som {len(classes)} tried: {[c.name for c in classes]}")
     
+    train_idx = 1
+    all_train_counts = 0
+    splits = {}
+
     for class_dir in classes:
         class_name = class_dir.name
         
@@ -55,14 +59,27 @@ def create_train_test_split(source_dir, target_dir, test_ratio):
         # Rozdelenie súborov
         test_files = image_files[:test_count]
         train_files = image_files[test_count:]
+
+        splits[class_name] = (train_files, test_files)
+        all_train_counts += train_count
+
+    start_test_index = ((all_train_counts // 100) + 1) * 100 + 1
+    test_idx = start_test_index
+
+    for class_name in sorted(splits.keys()):
+        train_files, test_files = splits[class_name]
         
-        # Kopírovanie súborov do train priečinka
-        for file in train_files:
-            shutil.copy2(file, train_class_dir / file.name)
-        
-        # Kopírovanie súborov do test priečinka
-        for file in test_files:
-            shutil.copy2(file, test_class_dir / file.name)
+        train_class_dir = train_dir / class_name
+        for f in train_files:
+            new_name = f"{train_idx:03d}.jpg"
+            shutil.copy2(f, train_class_dir / new_name)
+            train_idx += 1
+
+        test_class_dir = test_dir / class_name
+        for f in test_files:
+            new_name = f"{test_idx:03d}.jpg"
+            shutil.copy2(f, test_class_dir / new_name)
+            test_idx += 1   
     
     print(f"\nRozdelenie dokončené!")
     print(f"Trénovacie dáta: {train_dir}")
