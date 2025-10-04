@@ -1,4 +1,5 @@
 dataset_split/
+dataset_split.zip
 
 # Conda environments
 .conda/
